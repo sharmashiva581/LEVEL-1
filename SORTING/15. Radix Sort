@@ -41,7 +41,7 @@ public class Main {
     psa[0] = freq[0];
     
     for(int i=1 ; i< psa.length; i++){
-        psa[i] = psa[i-1] + freq[i]; // to calculate PSA of every index 
+        psa[i] = psa[i-1] + freq[i]; // 0 to i ka sum
     }
     
     // 3. Create answer array  --> travel from back on our input array...find that element's idx  actual position in the PSA array
@@ -50,7 +50,7 @@ public class Main {
     for(int i=arr.length-1; i >=0; i--){
         int pos = psa[(arr[i] / exp) % 10]-1; // that extra -1 is bcz we need position in terms of index
         ans[pos] = arr[i];
-        psa[(arr[i] / 10) % 10]--;
+        psa[(arr[i] / 10) % exp]--;
         
         
     }
