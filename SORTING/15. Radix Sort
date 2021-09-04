@@ -1,0 +1,85 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+  public static void radixSort(int[] arr) {
+    // write code here  
+    
+    // 1. find max value in the array
+    int max = Integer.MIN_VALUE;
+    for(int i=0 ; i< arr.length; i++){
+        max = Math.max(arr[i], max);
+    }
+    
+    int pow = 1;
+    while(max > 0){
+        // USE COUNT SORT
+        
+        countSort(arr , pow);
+        pow = pow*10;
+        
+        max = max / 10;
+    }
+  }
+
+  public static void countSort(int[] arr, int exp) {
+    // write code here
+    
+     int freq[] = new int[10]; // size 10 bcz any digit can only present bet 1-9 only
+   
+   // 1. Fill frequency array
+   
+   for(int i=0 ; i < arr.length; i++){
+       int val = arr[i];
+        freq[(val / exp) % 10]+=1;
+    }
+    
+    // 2. prefix sum array
+    
+    int psa[] = new int[freq.length];
+    psa[0] = freq[0];
+    
+    for(int i=1 ; i< psa.length; i++){
+        psa[i] = psa[i-1] + freq[i]; // to calculate PSA of every index 
+    }
+    
+    // 3. Create answer array  --> travel from back on our input array...find that element's idx  actual position in the PSA array
+    
+    int ans[] = new int[arr.length];
+    for(int i=arr.length-1; i >=0; i--){
+        int pos = psa[(arr[i] / exp) % 10]-1; // that extra -1 is bcz we need position in terms of index
+        ans[pos] = arr[i];
+        psa[(arr[i] / 10) % 10]--;
+        
+        
+    }
+    
+    // 4. copy ans aray to original array
+    for(int i=0 ; i< arr.length; i++){
+        arr[i] = ans[i];
+    }
+    
+    System.out.print("After sorting on " + exp + " place -> ");
+    print(arr);
+  }
+
+  public static void print(int[] arr) {
+    for (int i = 0; i < arr.length; i++) {
+      System.out.print(arr[i] + " ");
+    }
+    System.out.println();
+  }
+
+  public static void main(String[] args) throws Exception {
+    Scanner scn = new Scanner(System.in);
+    int n = scn.nextInt();
+    int[] arr = new int[n];
+    for (int i = 0; i < n; i++) {
+      arr[i] = scn.nextInt();
+    }
+    radixSort(arr);
+    print(arr);
+  }
+
+}
