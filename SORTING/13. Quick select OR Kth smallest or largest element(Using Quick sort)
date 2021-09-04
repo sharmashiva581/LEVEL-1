@@ -6,6 +6,7 @@ public class Main {
   public static int quickSelect(int[] arr, int lo, int hi, int k) {
     //write your code here
     // when pivot is at (K-1)th index , that index value is our Kth samllest element
+     // when pivot is at (n-k)th index , that index value is our Kth Largest element
     // In linear time O(n)
      
      
