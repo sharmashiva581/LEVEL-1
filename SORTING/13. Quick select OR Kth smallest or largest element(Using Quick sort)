@@ -10,15 +10,15 @@ public class Main {
      
      
      int pivot = partition(arr , arr[hi], lo,hi);
-     if(pivot < k){
+     if(pivot ==k){
+         return arr[pivot];
+     }
+     else if(pivot < k){
         return quickSelect(arr, pivot+1,hi,k);
      }
-     else if(pivot > k){
+     else          // if(pivot > k)
          return quickSelect(arr , lo , pivot-1,k);
-     }
-    
-        // if arr[pivot] == K
-         return arr[pivot];
+     
     
   }
 
@@ -61,7 +61,8 @@ public class Main {
       arr[i] = scn.nextInt();
     }
     int k = scn.nextInt();
-    System.out.println(quickSelect(arr,0,arr.length - 1,k - 1));
+     System.out.println(quickSelect(arr,0,arr.length - 1,k - 1));  // use this when have to find Kth Smallest element
+     System.out.println(quickSelect(arr,0,arr.length - 1,n-k));   // use this when have to find Kth largest element
   }
 
 }
