@@ -1,0 +1,34 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        // write your code here
+        Scanner scn = new Scanner(System.in);
+        int n= scn.nextInt();
+        int input[] = new int[n];
+        for(int i=0 ; i< n ; i++){
+            input[i] = scn.nextInt();
+        }
+        
+       
+        int paths = CSVJ_tab(input );
+        System.out.println(paths);
+    }
+    public static int CSVJ_tab(int input[] ){
+    
+        
+        int n= input.length;
+            int dp[] = new int[n+1];
+            
+        dp[n] = 1;
+        for(int i= n-1 ;i>=0 ; i--){ // going N to 0
+            for(int step = 1 ; step <=input[i] && i + step <= n ; step++){
+                  dp[i] += dp[i + step]; 
+            }
+        }
+        return dp[0];
+    }
+
+}
