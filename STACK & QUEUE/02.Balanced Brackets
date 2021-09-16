@@ -3,47 +3,49 @@ import java.util.*;
 
 public class Main {
 
-    public static void main(String[] args) throws Exception {
-        Scanner scn = new Scanner(System.in);
-        String str = scn.nextLine();
-        
-        Stack<Character> st = new Stack<>();
-        boolean ans = isBalanced(str , st);
-        System.out.println(ans);
+  public static void main(String[] args) throws Exception {
+    Scanner scn = new Scanner(System.in);
+    String exp = scn.nextLine();
+
+    System.out.println(isBalanced(exp));
+
+  }
+  public static boolean isBalanced(String exp) {
+    Stack<Character> st = new Stack<>();
+    for (int i = 0; i < exp.length(); i++) {
+      char ch = exp.charAt(i);
+
+      if (ch == '(' || ch == '[' || ch == '{') {
+        st.push(ch);
+      }
+      else if (ch == ')' || ch == ']' || ch == '}') {
+        if (st.size() == 0) {
+          // nCB< nOB  OR mewns this closing bracket is not able to find its opening                                                                                              bracket
+          return false;
+        }
+
+        if (ch == ')' && st.peek() != '(') {
+          return false;
+        }
+
+        if (ch == ']' && st.peek() != '[') {
+          return false;
+        }
+
+        if (ch == '}' && st.peek() != '{') {
+          return false;
+        }
+        st.pop(); // means ch== closing bracket hai  && st.peek() p opening brac hai ...just pop
+
+      }
+
 
     }
-    public static boolean isBalanced(String str , Stack<Character> st){
-        for(int i=0 ; i< str.length(); i++){
-            char ch = str.charAt(i);
-            
-            if(ch== '('|| ch=='['|| ch=='{'){
-                st.push(ch);
-            }
-            else if(ch== ')'|| ch==']'|| ch=='}'){
-                  if(st.size()==0){
-                    return false;
-                }
-                
-                
-               else if(st.peek()=='(' && ch==')'){
-                    st.pop();
-                }
-                else if(st.peek()=='[' && ch==']'){
-                    st.pop();
-                }
-                else if(st.peek()=='{' && ch=='}'){
-                    st.pop();
-                }
-               
-                
-            }
-        }
-        if(st.size() >0){
-            return false;
-        }
-        else{
-            return true;
-        }
+    if (st.size() > 0) {
+      // means nOB>nCB
+      return false;
     }
+    return true;
+  }
 
 }
