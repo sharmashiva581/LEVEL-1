@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class Main{
+public class Main{       //  FINAL OPTIMIZED CODE  FOR O(n)
   
 
 public static void main(String[] args) throws Exception {
@@ -18,11 +18,13 @@ public static void main(String[] args) throws Exception {
     SlidingWindowMaximum(a ,k);
  }
  public static void SlidingWindowMaximum(int arr[] , int k){
-     int ngor[] = nextGreaterElement(arr); // containing NGEOR indexes
-     
+     int ngor[] = nextGreaterElement(arr); 
+     int j=0;
      
      for(int i=0 ; i<= arr.length-k ; i++){
-         int j=i;
+         if(j < i){
+              j=i;
+         }
          // arr.length-k is the starting pposition for last window 
          
          while( ngor[j] < i+k){
