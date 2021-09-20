@@ -1,0 +1,67 @@
+import java.io.*;
+import java.util.*;
+
+public class Main { // extract characters from the back of given prefix expression and push them into the operand stack and in other stacks and evaluate -> last operator in the expression should be solved first
+
+
+  public static void main(String[] args) throws Exception {
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    String exp = br.readLine();
+
+    // code
+    conversion(exp);
+  }
+  public static void conversion(String str) {
+    Stack<Integer> operand = new Stack<>();
+    Stack<String> infix = new Stack<>();
+    Stack<String> postfix = new Stack<>();
+
+    for (int i = str.length()-1 ; i >= 0 ; i--) {
+      char ch = str.charAt(i);
+
+      if (ch >= '0' && ch <= '9' || ch >= 'a' && ch <= 'z') {
+        operand.push(ch - '0');
+        postfix.push(ch + "");
+        infix.push(ch + "");
+      }
+      else if (ch == '+' || ch == '-' || ch == '*' || ch == '/') {
+        int x = operand.pop();
+        int y = operand.pop();
+        char opr = ch;
+        int val = calculate(opr, x, y );
+        operand.push(val);
+
+        // infix evaluation
+        String inx = infix.pop(); // inx = infix x
+        String iny = infix.pop(); // iny = infix y
+        infix.push("(" + inx + opr + iny + ')');
+
+        // prefix evaluation
+        String postx = postfix.pop(); // posty = postfix y
+        String posty = postfix.pop(); // postx = postfix x
+        postfix.push(  postx + posty + opr);
+      }
+    }
+    System.out.println(operand.peek());
+    System.out.println(infix.peek());
+    System.out.println(postfix.peek());
+
+  }
+  public static int calculate(char opr, int x, int y) {
+    if (opr == '+') {
+      return x + y;
+    }
+    else if (opr == '-') {
+      return x - y;
+    }
+    else if (opr == '*') {
+      return x * y;
+    }
+    else if (opr == '/') {
+      return x / y;
+    }
+    else {
+      return -1;
+    }
+  }
+}
