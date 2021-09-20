@@ -36,7 +36,7 @@ public class Main { // extract characters from the back of given prefix expressi
         String iny = infix.pop(); // iny = infix y
         infix.push("(" + inx + opr + iny + ')');
 
-        // prefix evaluation
+        // postfix evaluation
         String postx = postfix.pop(); // posty = postfix y
         String posty = postfix.pop(); // postx = postfix x
         postfix.push(  postx + posty + opr);
