@@ -28,15 +28,15 @@ public class Main {
       System.out.println();
     }
 
-    void add(int val) {
+    void add(int val) { // in a queue new value add always at the end/rear of a queue
       // write ur code here
       if(size == data.length){
            System.out.println("Queue overflow");
            
        }
        else{
-           int idx = (front+size) % data.length;
-           data[idx] = val;
+           int rear = (front+size) % data.length;
+           data[rear] = val;
            size++;
        }
        
