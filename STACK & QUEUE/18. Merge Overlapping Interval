@@ -1,0 +1,90 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    public static class Interval  implements Comparable<Interval>{
+       int st; // st = start time of a interval
+       int et; // et = end time of a interval
+       
+       public Interval(int st , int et){
+           this.st = st;
+           this.et = et;
+       }
+       public Interval(){
+           
+       }
+       public int compareTo(Interval  other){ // both parameters should be of same data type -> space separated parameters passed always not comma separated
+       // this and other both are of Interval data type
+           
+           if(this.st > other.st){
+               return 1;
+           }
+           else if(this.st  < other.st){
+               return -1;
+           }
+           else{
+               return 0;
+           }
+       }
+    }
+
+    public static void main(String[] args) throws Exception {
+        // write your code here
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int n = Integer.parseInt(br.readLine());
+        int[][] arr = new int[n][2];
+
+        for (int j = 0; j < n; j++) {
+            String line = br.readLine();
+            arr[j][0] = Integer.parseInt(line.split(" ")[0]);
+            arr[j][1] = Integer.parseInt(line.split(" ")[1]);
+        }
+
+        mergeOverlappingIntervals(arr);
+    }
+
+    public static void mergeOverlappingIntervals(int[][] arr) {
+        // merge overlapping intervals and print in increasing order of start time
+        int n= arr.length;
+        Interval intv[] = new Interval[n]; // Interval as a data type here -> we created
+        
+        // fill the interval array
+        for(int i=0 ; i< n ; i++){
+            int ist = arr[i][0]; // i'th starting interval time
+            int iet = arr[i][1]; // i'th end interval time
+            
+            intv[i] = new Interval(ist , iet);
+        }
+        Arrays.sort(intv); // to sort intv array on the basis of thier start time
+        
+        Stack<Interval> st = new Stack<>();
+        st.push(intv[0]);
+        
+        for(int i=1 ; i< n ; i++){
+            Interval current = intv[i];
+            Interval top = st.peek();
+            
+            // check if current and top can be merged or not
+            if(current.st <= top.et){
+                // yes merging is possible
+                top.et = Math.max(current.et , top.et);
+                
+            }
+            else{
+                // merging is not possible -> so directly push interval in stack
+                st.push(current);
+            }
+        }
+        
+        // print stack
+        Stack<Interval> temp = new Stack<>(); // a temporary stack to store values
+        while(st.size() > 0){
+            temp.push(st.pop());
+        }
+        while(temp.size() > 0){
+            Interval top = temp.pop();
+            System.out.println(top.st + " " + top.et);
+        }
+    }
+
+}
