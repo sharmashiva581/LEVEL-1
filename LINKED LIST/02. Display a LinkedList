@@ -32,9 +32,9 @@ public class Main {
       return size;
     }
 
-    public void display(LinkedList list){
+    public void display(){
       // write code here
-      Node temp = list.head;
+      Node temp = this.head; // this is for list passed from main
       while(temp != null){
           System.out.print(temp.data + " ");
           temp = temp.next;
@@ -56,7 +56,7 @@ public class Main {
       } else if(str.startsWith("size")){
         System.out.println(list.size());
       } else if(str.startsWith("display")){
-        list.display(list);
+        list.display();
       }
       str = br.readLine();
     }
