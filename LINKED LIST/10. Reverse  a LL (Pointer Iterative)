@@ -186,11 +186,16 @@ public class Main {
       Node prev = null;
       
       while(curr != null){
+      // 1 . store backup
           Node next = curr.next;
+      // 2 . Reverse Link
           curr.next = prev;
+      // 3. Move pointers    
           prev = curr;
           curr = next;
       }
+      
+      // 4. Swap head and tail
       Node temp = head;
       head = tail;
       tail = temp;
