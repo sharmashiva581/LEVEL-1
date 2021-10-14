@@ -303,6 +303,7 @@ public class Main {
       }
       this.head = al.head;
       this.tail = al.tail;
+      this.size = al.size;
       
     
     }
