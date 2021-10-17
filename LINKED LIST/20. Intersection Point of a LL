@@ -417,6 +417,10 @@ public class Main {
           p1 = p1.next;
           p2 = p2.next;
       }
+      if(p1 = null && p2 == null){
+          // means there is no intersection point
+          return -1;
+      }
       return p1.data;
     }
   }
