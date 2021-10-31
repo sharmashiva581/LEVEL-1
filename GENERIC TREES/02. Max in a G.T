@@ -57,18 +57,18 @@ public class Main {
 
   public static int max(Node node) { /*********************************************************************************************************/
     // write your code here
-    int root = node.data;
+    
     int ans = Integer.MIN_VALUE;
     
     for(int i=0 ; i < node.children.size(); i++){
         Node child = node.children.get(i);
-        int child_max = max(child);
+        int child_max = max(child); // max of child family
         if(child_max > ans){
             ans = child_max;
         }
         
     }
-    return (Math.max(ans , root));
+    return (Math.max(ans , node.data));
   }
 
   public static void main(String[] args) throws Exception {
