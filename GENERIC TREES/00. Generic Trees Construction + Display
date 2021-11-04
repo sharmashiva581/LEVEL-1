@@ -1,0 +1,81 @@
+import java.util.*;
+public class Main{
+    private static class Node{
+         int data;
+        ArrayList<Node> children = new ArrayList<>();
+        
+          Node(){
+            
+        }
+         Node(int val){
+            this.data = val; 
+        }
+        
+        // public void print(){
+        //     System.out.println(data);
+        // }
+        
+    }
+    
+    public static Node construct(int arr[]){
+        Stack<Node> st = new Stack<>();
+        Node root = null;
+        
+        for(int i=0 ; i< arr.length ; i++){
+            if(arr[i] == -1){
+                st.pop();
+            }
+            else{
+                 Node nn = new Node(arr[i]);
+                 
+                // Node nn = new Node(); if we want to giue value to data like this than we don't need to make constructor
+                // nn.data = arr[i];
+                
+                if(st.size() > 0){
+                      Node parent = st.peek();
+                      parent.children.add(nn);
+                }
+                else{
+                    root = nn;
+                }
+                
+                st.push(nn);
+            }
+        }
+        return root;
+    }
+    public static void display(Node root){
+        System.out.print(root.data + "--> ");
+        
+        for(int i=0 ; i< root.children.size() ; i++){
+            Node child = root.children.get(i);
+            System.out.print(child.data + " ");
+        }
+        System.out.println(".");
+        
+        for(int i=0 ; i< root.children.size(); i++){
+            Node child = root.children.get(i);
+            display(child);
+        }
+    }
+   
+    
+   public static void main(String args[]){
+       
+         // Node obj = new Node(20);
+         // obj.print();
+         
+      Scanner scn = new Scanner(System.in);
+      
+      int n= scn.nextInt();
+      int arr[] = new int[n];
+      for(int i=0 ; i < n ; i++){
+          arr[i] = scn.nextInt();
+      }
+       
+      Node root = construct(arr);
+      System.out.println("Root Node is " +root.data + "    And " +"  Root Node childrens size is "+ root.children.size());
+      display(root);
+  
+   }
+}
