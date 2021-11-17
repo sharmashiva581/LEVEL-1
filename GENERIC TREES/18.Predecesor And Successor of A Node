@@ -59,6 +59,7 @@ public class Main {
     }
     else if(previous != null && previous.data == data){
       successor   = current;
+      return;
     }
     
     for( Node child :node.children){
