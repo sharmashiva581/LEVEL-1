@@ -70,8 +70,8 @@ public class Main {
     while(st.size() > 0){
         // pop
         pair top = st.peek();
-        Node tn = rem.node; // top pair's node
-        int ts = rem.state; // top pair's state
+        Node tn = top.node; // top pair's node
+        int ts = top.state; // top pair's state
         
         if(ts == -1){
              // -1 state means  = add in pre , state++
