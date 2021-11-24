@@ -69,24 +69,24 @@ public class Main {
     
     while(st.size() > 0){
         // pop
-        pair rem = st.peek();
-        Node rn = rem.node; // removed pair's node
-        int rs = rem.state; // removed pair's state
+        pair top = st.peek();
+        Node tn = rem.node; // top pair's node
+        int ts = rem.state; // top pair's state
         
-        if(rs == -1){
+        if(ts == -1){
              // -1 state means  = add in pre , state++
-             pre.append(rn.data + " ");
-             rem.state++;
+             pre.append(tn.data + " ");
+             top.state++;
         }
-        else if(rs >= 0 && rs < rn.children.size()){
+        else if(ts >= 0 && ts < tn.children.size()){
              // 0 to children.size -1 =  child push , state++
-             Node child =rn.children.get(rs);
+             Node child =tn.children.get(ts);
              st.push(new pair(child , -1));
-             rem.state++;
+             top.state++;
         }
-        else if(rs == rn.children.size()){
+        else if(ts == tn.children.size()){
              // if child state == node's children size =add in  post ,and pop
-             post.append(rn.data + " ");
+             post.append(tn.data + " ");
              st.pop();
         }
     }
