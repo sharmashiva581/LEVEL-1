@@ -83,10 +83,6 @@ public class Main {
     // write your code here
     Queue<Node> q = new ArrayDeque<>();
     q.add(root);
-
-    if (root == null) {
-      return ;
-    }
     
     while (q.size() > 0) {
       int count = q.size();
