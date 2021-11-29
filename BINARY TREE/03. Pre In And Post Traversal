@@ -120,10 +120,9 @@ public class Main{
       //display(root);
       
       traversal(root); // pre , in , and post printing
-       System.out.println(pre);
-       System.out.println(in);
-       System.out.println(post);
-         
+       System.out.println("Pre --> " + pre);
+       System.out.println("In --> " + in);
+       System.out.println("Post --> " + post);
   
    }
 }
