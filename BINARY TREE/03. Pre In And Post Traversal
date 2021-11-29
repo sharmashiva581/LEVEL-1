@@ -1,0 +1,129 @@
+import java.util.*;
+public class Main{
+    public static class Node{
+         int data;
+         Node right;
+         Node left;
+        
+          Node(){
+            
+        }
+        
+       Node(int data){
+           this.data = data;
+       }
+        
+    }
+    public static class pair{
+        Node node;
+        int state;
+        
+        pair(){
+            
+        }
+        pair(Node node , int state){
+            this.node = node;
+            this.state = state;
+        }
+    }
+    
+    public static Node construct(int arr[]){
+        Stack<pair> st = new Stack<>();
+        
+        Node root = new Node(arr[0]);
+       
+        st.push(new pair(root , 0));
+        
+        int idx = 1;
+        while(st.size() > 0){
+            pair top = st.peek();
+            
+            if(top.state == 0){ // state 0 means waiting for left
+                if(arr[idx] != -1){
+                    Node left = new Node(arr[idx]);
+                    top.node.left  = left;
+                    pair lcp = new pair(left , 0); // left child pair
+                    st.push(lcp);
+                }
+                top.state++;
+                idx++;
+            }
+            else if(top.state == 1){  // state 1 means waiting for right child
+                 if(arr[idx] != -1){
+                    Node right = new Node(arr[idx]);
+                    top.node.right  = right;
+                    pair rcp = new pair(right , 0); // right child pair
+                    st.push(rcp);
+                }
+                top.state++;
+                idx++;
+            }
+            else{// state 2 means left and  right childs are done ....pop now
+                st.pop();
+            }
+            
+        }
+        return root;
+        
+    }
+    public static void display(Node root){
+        if(root == null){
+            return ;
+        }
+         
+         String str = " <-- " + root.data + " --> ";
+         String left = (root.left != null) ? (root.left.data + ""): ".";
+          String right = (root.right != null) ? (root.right.data + ""): ".";
+          
+          System.out.println(left + str + right);
+          
+       
+           display(root.left);
+        
+     
+           display(root.right);
+       
+    }
+     static String pre = "";
+     static String in = "";
+     static String post = "";
+     public static void traversal(Node root){
+         if(root == null){
+             return;
+         }
+         // pre
+         pre += root.data + " ";
+         
+         // In
+         traversal(root.left);
+         in += root.data + " ";
+         
+         // post
+         traversal(root.right);
+         post += root.data + " ";
+         
+        
+     }
+    
+   public static void main(String args[]){
+       
+      Scanner scn = new Scanner(System.in);
+      
+      int n= scn.nextInt();
+      int arr[] = new int[n];
+      for(int i=0 ; i < n ; i++){
+          arr[i] = scn.nextInt();
+      }
+       
+      Node root = construct(arr);
+    //   System.out.println(root.left.data + "  <-- " + root.data + " --> " +  root.right.data);
+      //display(root);
+      
+      traversal(root); // pre , in , and post printing
+       System.out.println(pre);
+       System.out.println(in);
+       System.out.println(post);
+         
+  
+   }
+}
