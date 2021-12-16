@@ -88,7 +88,7 @@ public class Main {
       }
   }
 
-  public static Node remove(Node node, int data) {
+  public static Node remove(Node node, int data) { /**********************************************************************************************/
     // write your code here
     if(node == null){ // data is not present in the tree
         return null;
@@ -117,7 +117,7 @@ public class Main {
       else{ // means node has both the childs
           int lmax = max(node.left); // either we can take max of left subtree  or min of right subtree 
           node.data = lmax;
-          remove(node.left , lmax);
+          node.left = remove(node.left , lmax);
       }
     }
     return node;
