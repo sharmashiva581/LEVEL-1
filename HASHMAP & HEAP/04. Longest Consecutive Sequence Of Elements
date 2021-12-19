@@ -1,0 +1,56 @@
+import java.io.*;
+import java.util.*;
+
+public class Main{
+
+public static void main(String[] args) throws Exception {
+    // write your code here
+    Scanner scn = new Scanner(System.in);
+    int n1 = scn.nextInt();
+    int arr[] = new int[n1];
+    for(int i=0 ; i< n1 ;i++){
+        arr[i] = scn.nextInt();
+    }
+    
+    HashMap<Integer , Boolean> hm = new HashMap<>();
+    for(int ele : arr){
+        if(hm.containsKey(ele)== false){
+             hm.put(ele , true);
+        }
+       
+    }
+    
+    // now finding actual sequence starts
+    for(int key : hm.keySet()){
+        if(hm.containsKey(key-1) == true ){
+            hm.put(key , false);
+        }
+    }
+    
+    // now find the longest conse sequence out of all consec seq
+    // travel on map instead of array to get rid of duplicacy and extra time
+    
+    int st = -1; // start
+    int mlen = 0; // maximum length
+    
+    for(int key : hm.keySet()){
+        int ele = key;
+        int len = 1;
+        
+        while(hm.containsKey(ele + len) == true){
+            len++;
+        }
+        if(len > mlen){
+            mlen = len;
+            st = ele;
+        }
+    }
+    
+    while(mlen > 0){
+        System.out.println(st);
+        st++;
+        mlen--;
+    }
+ }
+
+}
