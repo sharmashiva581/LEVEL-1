@@ -1,0 +1,43 @@
+import java.io.*;
+import java.util.*;
+
+public class Main{
+
+public static void main(String[] args) throws Exception {
+    // write your code here
+    Scanner scn = new Scanner(System.in);
+     int n1 = scn.nextInt();
+    
+    int a1[] = new int[n1];
+    for(int i=0 ; i< n1 ; i++){
+        a1[i] = scn.nextInt();
+    }
+    int n2 = scn.nextInt();
+    int a2[] = new int[n2];
+    for(int j=0 ; j < n2 ; j++){
+        a2[j] = scn.nextInt();
+    }
+    HashMap<Integer , Integer> hm = new HashMap<>();
+    
+    // fill this hashmap using first array
+    for(int i=0 ; i< n1 ; i++){
+        int val = a1[i];
+        if(hm.containsKey(val) == false){
+            hm.put(val , 1);
+        }
+        else{
+            int nf = hm.get(val)+1; // new freq
+            hm.put(val , nf);
+        }
+    }
+    for(int i =0 ; i< n2 ; i++){ // now travelling on 2nd array
+        int val2 = a2[i];
+        if(hm.containsKey(val2) == true && hm.get(val2) > 0){
+            System.out.println(val2);
+            hm.put(val2 ,hm.get(val2)-1);
+        }
+    }
+    
+ }
+
+}
