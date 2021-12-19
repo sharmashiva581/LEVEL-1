@@ -44,7 +44,7 @@ public static void main(String[] args) throws Exception {
             mlen = len;
             st = ele;
         }
-        hm.remove(ele); // if same element present in array multiple times
+        hm.put(ele , false); // if same element present in array multiple times
     }
     
     while(mlen > 0){
