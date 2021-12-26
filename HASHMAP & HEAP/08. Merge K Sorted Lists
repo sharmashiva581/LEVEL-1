@@ -1,0 +1,78 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    public static class pair implements Comparable<pair>{
+        int val;
+        int li; // list index 
+        int di; // data index
+        pair(){
+            
+        }
+        pair(int val , int li , int di){
+            this.val = val;
+            this.li = li;
+            this.di = di;
+        }
+        // this < other -> -ve return
+        // this > other -> +ve return
+        // this == other -> 0 return
+        
+        public int compareTo(pair o){
+            return this.val - o.val; // will return a pair a/c to their value
+        }
+    }
+   public static ArrayList<Integer> mergeKSortedLists(ArrayList<ArrayList<Integer>> lists){
+      ArrayList<Integer> ans = new ArrayList<>();
+
+      // write your code here
+      PriorityQueue<pair> pq = new PriorityQueue<>();
+      
+     // add first pair of every list
+     for(int i=0 ; i < lists.size() ; i++){
+         int li = i; // list index
+         int di = 0; // data index
+         int val = lists.get(li).get(di);
+         
+         pq.add(new pair(val , li , di));
+     }
+     
+     while(pq.size() > 0){
+         pair rem = pq.remove();
+         ans.add(rem.val);
+         
+         int nli = rem.li; // new list index
+         int ndi = rem.di +1; // new data index
+         
+         if(ndi < lists.get(nli).size()){
+             int val = lists.get(nli).get(ndi);
+             pq.add(new pair(val , nli , ndi));
+         }
+     }
+      return ans;
+   }
+
+   public static void main(String[] args) throws Exception {
+      BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+      int k = Integer.parseInt(br.readLine());
+      ArrayList<ArrayList<Integer>> lists = new ArrayList<>();
+      for(int i = 0; i < k; i++){
+         ArrayList<Integer> list = new ArrayList<>();
+
+         int n = Integer.parseInt(br.readLine());
+         String[] elements = br.readLine().split(" ");
+         for(int j = 0; j < n; j++){
+            list.add(Integer.parseInt(elements[j]));
+         }
+
+         lists.add(list);
+      }
+
+      ArrayList<Integer> mlist = mergeKSortedLists(lists);
+      for(int val: mlist){
+         System.out.print(val + " ");
+      }
+      System.out.println();
+   }
+
+}
