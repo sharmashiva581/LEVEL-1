@@ -3,44 +3,38 @@ import java.util.*;
 
 public class Main {
 
-    public static void main(String[] args) throws Exception {
-        Scanner scn = new Scanner(System.in);
-        String str = scn.nextLine();
-        Stack<Character> st = new Stack<>();
-        
-       boolean ans = Duplicate_Brackets(str , st);
-       
-          System.out.println(ans);
-       
+  public static void main(String[] args) throws Exception {
+    Scanner scn = new Scanner(System.in);
+    String str = scn.nextLine();
 
-    }
-    public static boolean Duplicate_Brackets(String str , Stack<Character>st){
-        
-        int pop =0;
-         for(int i=0 ; i< str.length() ; i++){
-            char ch = str.charAt(i);
-            
-            if(ch !=')'){
-                st.push(ch);
-            }
-            else if(ch==')'){
-                if(st.peek()==ch){
-                    return false;
-                }
-                 pop = 0;
-                while(st.peek()!='('){
-                    st.pop();
-                    pop++;
-                }
-                st.pop();
-            }
-        }
-        if(pop >0){
-            return false;
+    Stack<Character> st = new Stack<>();
+
+    for (int i = 0 ; i < str.length() ; i++) {
+
+      char ch = str.charAt(i);
+
+      if (ch == ')') {
+
+        if (st.peek() == '(') { // means we have duplicate brackets
+          System.out.println("true");
+
+          return;
         }
         else {
-            return true;
+          while (st.peek() != '(' ) {
+            st.pop();
+          }
+          st.pop();
         }
+      }
+
+
+      else {
+        st.push(ch);
+       }
     }
 
+        System.out.println("false"); // means no duplicacy found and full string travelled 
+
+  }
 }
